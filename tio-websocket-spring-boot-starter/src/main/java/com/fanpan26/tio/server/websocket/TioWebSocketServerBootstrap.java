@@ -79,11 +79,21 @@ public final class TioWebSocketServerBootstrap {
             this.ipStatListener = ipStatListener;
             this.groupListener = groupListener;
         }
+        afterSetProperties(tioWebSocketClassScanner);
+    }
+
+    private void afterSetProperties(TioWebSocketClassScanner scanner){
         if (this.tioWebSocketMsgHandler == null) {
             throw new TioWebSocketMsgHandlerNotFoundException();
         }
-        if (tioWebSocketClassScanner!=null){
-            tioWebSocketClassScanner.destroy();
+        if (this.ipStatListener == null){
+            logger.warn("no bean type of IpStatListener found");
+        }
+        if (this.groupListener == null){
+            logger.warn("no bean type of GroupListener found");
+        }
+        if (scanner!=null){
+            scanner.destroy();
         }
     }
 
