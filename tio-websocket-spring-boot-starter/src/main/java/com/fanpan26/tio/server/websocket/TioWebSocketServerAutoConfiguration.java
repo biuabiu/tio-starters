@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.tio.cluster.redisson.RedissonTioClusterTopic;
+import org.tio.server.ServerGroupContext;
 
 
 /**
@@ -50,6 +51,9 @@ public class TioWebSocketServerAutoConfiguration {
     private RedissonTioClusterTopic redissonTioClusterTopic;
 
 
+    /**
+     * Tio WebSocket Server bootstrap
+     * */
     @Bean
     public TioWebSocketServerBootstrap webSocketServerBootstrap() {
         return new TioWebSocketServerBootstrap(serverProperties,
@@ -61,11 +65,20 @@ public class TioWebSocketServerAutoConfiguration {
     }
 
     @Bean
+    public ServerGroupContext serverGroupContext(TioWebSocketServerBootstrap bootstrap){
+        return bootstrap.getServerGroupContext();
+    }
+
+    @Bean
     @ConditionalOnProperty(value = "tio.websocket.cluster.enabled",havingValue = "true",matchIfMissing = true)
     public RedisInitializer redisInitializer(){
         return new RedisInitializer(redisConfig);
     }
 
+
+    /**
+     *  RedissonTioClusterTopic  with  RedisInitializer
+     * */
     @Bean
     @ConditionalOnBean(RedisInitializer.class)
     public RedissonTioClusterTopic redissonTioClusterTopic(RedisInitializer redisInitializer) {
