@@ -3,13 +3,20 @@ package com.fanpan26.tio.server.websocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.tio.cluster.redisson.RedissonTioClusterTopic;
+import org.tio.core.intf.GroupListener;
+import org.tio.core.stat.IpStatListener;
 import org.tio.server.ServerGroupContext;
+import org.tio.websocket.server.handler.IWsMsgHandler;
+
+import java.security.acl.Group;
 
 
 /**
@@ -29,7 +36,7 @@ public class TioWebSocketServerAutoConfiguration {
     private static final String CLUSTER_TOPIC_CHANNEL = "tio_ws_spring_boot_starter";
 
     @Autowired(required = false)
-    private TioWebSocketMsgHandler tioWebSocketMsgHandler;
+    private IWsMsgHandler tioWebSocketMsgHandler;
 
     @Autowired(required = false)
     private TioWebSocketIpStatListener tioWebSocketIpStatListener;
@@ -49,6 +56,8 @@ public class TioWebSocketServerAutoConfiguration {
     @Autowired(required = false)
     private RedissonTioClusterTopic redissonTioClusterTopic;
 
+    @Autowired(required = false)
+    private TioWebSocketClassScanner tioWebSocketClassScanner;
 
     /**
      * Tio WebSocket Server bootstrap
@@ -60,7 +69,8 @@ public class TioWebSocketServerAutoConfiguration {
                 redissonTioClusterTopic,
                 tioWebSocketMsgHandler,
                 tioWebSocketIpStatListener,
-                tioWebSocketGroupListener);
+                tioWebSocketGroupListener,
+                tioWebSocketClassScanner);
     }
 
     @Bean
@@ -84,6 +94,8 @@ public class TioWebSocketServerAutoConfiguration {
         return new RedissonTioClusterTopic(CLUSTER_TOPIC_CHANNEL,redisInitializer.getRedissonClient());
     }
 
-
-
+    @Bean(destroyMethod = "destroy")
+    public TioWebSocketClassScanner tioWebSocketClassScanner(ApplicationContext applicationContext) {
+        return new TioWebSocketClassScanner(applicationContext);
+    }
 }
