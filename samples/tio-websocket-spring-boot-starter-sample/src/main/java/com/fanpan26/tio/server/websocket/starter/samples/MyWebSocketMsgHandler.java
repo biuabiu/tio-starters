@@ -14,10 +14,6 @@ import org.tio.websocket.common.WsRequest;
 @WebSocketMsgHandler
 public class MyWebSocketMsgHandler implements TioWebSocketMsgHandler {
 
-
-    @Autowired
-    private ServerGroupContext serverGroupContext;
-
     @Override
     public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
         return httpResponse;
@@ -26,7 +22,6 @@ public class MyWebSocketMsgHandler implements TioWebSocketMsgHandler {
     @Override
     public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
         System.out.println("握手成功");
-        Tio.sendToAll(serverGroupContext, TioWsUtils.wsPacket("又一个用户握手成功啦"));
     }
 
     @Override
