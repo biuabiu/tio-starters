@@ -4,11 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author fyp
- * @crate 2019/5/13 23:33
- * @project tio-starters
- */
-
+ * @author fanpan26
+ * */
 @Configuration
 public class TioWebSocketServerMarkerConfiguration {
 

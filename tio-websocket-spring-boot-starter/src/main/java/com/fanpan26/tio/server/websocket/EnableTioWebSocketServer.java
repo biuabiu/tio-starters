@@ -5,10 +5,8 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * @author fyp
- * @crate 2019/5/13 23:31
- * @project tio-starters
- */
+ * @author fanpan26
+ * */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

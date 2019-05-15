@@ -6,6 +6,9 @@ import org.redisson.codec.FstCodec;
 import org.redisson.config.Config;
 import org.redisson.config.SingleServerConfig;
 
+/**
+ * @author fanpan26
+ * */
 public final class RedisInitializer {
 
     private RedissonClient redissonClient;

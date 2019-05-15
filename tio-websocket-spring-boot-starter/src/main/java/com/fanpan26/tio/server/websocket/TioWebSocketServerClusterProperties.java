@@ -6,10 +6,8 @@ import org.tio.utils.hutool.StrUtil;
 import static com.fanpan26.tio.server.websocket.TioWebSocketServerClusterProperties.PREFIX;
 
 /**
- * @author fyp
- * @crate 2019/5/13 23:36
- * @project tio-starters
- */
+ * @author fanpan26
+ * */
 @ConfigurationProperties(PREFIX)
 public class TioWebSocketServerClusterProperties {
     public static final String PREFIX = "tio.websocket.cluster";

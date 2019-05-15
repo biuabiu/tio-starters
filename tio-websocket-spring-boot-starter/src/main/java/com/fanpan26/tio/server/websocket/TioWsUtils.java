@@ -10,10 +10,8 @@ import org.tio.websocket.common.WsResponse;
 import java.io.UnsupportedEncodingException;
 
 /**
- * @author fyp
- * @crate 2019/5/14 20:57
- * @project tio-starters
- */
+ * @author fanpan26
+ * */
 public class TioWsUtils {
 
     private static Opcode opcode;
@@ -26,9 +24,6 @@ public class TioWsUtils {
         return opcode;
     }
 
-    /**
-     *
-     * */
     public static final void send(ChannelContext channelContext,Object msg){
         Tio.send(channelContext,wsPacket(msg));
     }

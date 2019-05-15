@@ -6,10 +6,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.tio.server.ServerGroupContext;
 
 /**
- * @author fyp
- * @crate 2019/5/14 20:48
- * @project tio-starters
- */
+ * @author fanpan26
+ * */
 public final class SpringContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;

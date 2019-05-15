@@ -6,10 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
 /**
- * @author fyp
- * @crate 2019/5/13 23:42
- * @project tio-starters
- */
+ * @author fanpan26
+ * */
 @Configuration
 public class TioWebSocketServerInitializerConfiguration
         implements SmartLifecycle, Ordered {

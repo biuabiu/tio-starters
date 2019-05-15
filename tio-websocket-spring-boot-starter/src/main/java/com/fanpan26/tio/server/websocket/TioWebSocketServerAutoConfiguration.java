@@ -13,10 +13,8 @@ import org.tio.cluster.redisson.RedissonTioClusterTopic;
 
 
 /**
- * @author fyp
- * @crate 2019/5/13 23:34
- * @project tio-starters
- */
+ * @author fanpan26
+ * */
 @Configuration
 @Import(TioWebSocketServerInitializerConfiguration.class)
 @ConditionalOnBean(TioWebSocketServerMarkerConfiguration.Marker.class)

@@ -3,19 +3,19 @@ package com.fanpan26.tio.server.websocket;
 import org.tio.core.intf.TioUuid;
 import org.tio.utils.hutool.Snowflake;
 
+/**
+ * @author fanpan26
+ * */
 public class TioWebSocketServerDefaultUuid implements TioUuid {
     private Snowflake snowflake;
 
-    /**
-     *
-     * @author tanyaowu
-     */
+
     public TioWebSocketServerDefaultUuid(long workerId, long dataCenterId) {
         snowflake = new Snowflake(workerId, dataCenterId);
     }
 
     /**
-     * @return
+     * @return new uuid
      * @author tanyaowu
      */
     @Override
