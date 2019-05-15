@@ -10,7 +10,7 @@ import java.util.function.Consumer;
  * If there are no {@link org.springframework.stereotype.Service} annotations or {@link WebSocketMsgHandler} annotations,
  * the {@link org.tio.websocket.server.handler} or {@link TioWebSocketMsgHandler} will be found by scanning packages
  *
- * @author fyp
+ * @author fanpan26
  */
 public class TioWebSocketClassScanner {
 
@@ -34,7 +34,7 @@ public class TioWebSocketClassScanner {
                         try {
                             consumer.accept(clazz.newInstance());
                         } catch (Exception e) {
-                            throw new RuntimeException("create new instance of IWsMsgHandler failed");
+                            throw new RuntimeException("create new instance of "+clazz.getTypeName()+" failed");
                         }
                     }
                 }
