@@ -1,8 +1,8 @@
 package com.fanpan26.tio.server.websocket;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.tio.cluster.TioClusterConfig;
 import org.tio.cluster.redisson.RedissonTioClusterTopic;
 import org.tio.core.intf.GroupListener;
@@ -11,8 +11,10 @@ import org.tio.server.ServerGroupContext;
 import org.tio.utils.Threads;
 import org.tio.websocket.server.WsServerConfig;
 import org.tio.websocket.server.WsServerStarter;
+import org.tio.websocket.server.handler.IWsMsgHandler;
 
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * @author fanpan26
@@ -30,30 +32,61 @@ public final class TioWebSocketServerBootstrap {
     private TioClusterConfig clusterConfig;
     private WsServerStarter wsServerStarter;
     private ServerGroupContext serverGroupContext;
-    private TioWebSocketMsgHandler tioWebSocketMsgHandler;
+    private IWsMsgHandler tioWebSocketMsgHandler;
     private IpStatListener ipStatListener;
     private GroupListener groupListener;
 
     public TioWebSocketServerBootstrap(TioWebSocketServerProperties serverProperties,
                                        TioWebSocketServerClusterProperties clusterProperties,
                                        RedissonTioClusterTopic redissonTioClusterTopic,
-                                       TioWebSocketMsgHandler tioWebSocketMsgHandler,
+                                       IWsMsgHandler tioWebSocketMsgHandler,
                                        IpStatListener ipStatListener,
-                                       GroupListener groupListener) {
-
-        if (tioWebSocketMsgHandler == null){
-            throw new RuntimeException("no bean for tio websocket server : TioWebSocketMsgHandler");
-        }
+                                       GroupListener groupListener,
+                                       TioWebSocketClassScanner tioWebSocketClassScanner) {
         this.serverProperties = serverProperties;
         this.clusterProperties = clusterProperties;
-        if(redissonTioClusterTopic == null){
+        if (redissonTioClusterTopic == null) {
             logger.info("cluster mod closed");
         }
         this.redissonTioClusterTopic = redissonTioClusterTopic;
-        this.tioWebSocketMsgHandler = tioWebSocketMsgHandler;
-        this.ipStatListener = ipStatListener;
-        this.groupListener = groupListener;
+
+        // IWsMsgHandler bean not found
+        if (tioWebSocketClassScanner != null) {
+            if (tioWebSocketMsgHandler == null) {
+                tioWebSocketClassScanner.scanInstance(IWsMsgHandler.class, instance -> {
+                    this.tioWebSocketMsgHandler = (IWsMsgHandler) instance;
+                });
+            }else{
+                this.tioWebSocketMsgHandler = tioWebSocketMsgHandler;
+            }
+
+            if (ipStatListener == null) {
+                tioWebSocketClassScanner.scanInstance(IpStatListener.class, instance -> {
+                    this.ipStatListener = (IpStatListener) instance;
+                });
+            } else {
+                this.ipStatListener = ipStatListener;
+            }
+            if (groupListener == null) {
+                tioWebSocketClassScanner.scanInstance(GroupListener.class, instance -> {
+                    this.groupListener = (GroupListener) instance;
+                });
+            } else {
+                this.groupListener = groupListener;
+            }
+        } else {
+            this.tioWebSocketMsgHandler = tioWebSocketMsgHandler;
+            this.ipStatListener = ipStatListener;
+            this.groupListener = groupListener;
+        }
+        if (this.tioWebSocketMsgHandler == null) {
+            throw new TioWebSocketMsgHandlerNotFoundException();
+        }
+        if (tioWebSocketClassScanner!=null){
+            tioWebSocketClassScanner.destroy();
+        }
     }
+
 
     public ServerGroupContext getServerGroupContext() {
         return serverGroupContext;
