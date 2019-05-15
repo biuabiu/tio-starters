@@ -1,5 +1,4 @@
-# tio-websocket-spring-boot-starter &
-# tio-web-spring-boot-starter
+# tio-starters
 
 * tio version 
 ``` java
@@ -17,6 +16,6 @@
          <artifactId>spring-boot-dependencies</artifactId>
          <version>2.0.6.RELEASE</version>
          <type>pom</type>
-          <scope>import</scope>
+         <scope>import</scope>
      </dependency>
 ```
