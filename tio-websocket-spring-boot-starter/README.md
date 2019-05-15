@@ -2,7 +2,7 @@
 
 ## 快速开始
 * 引入 jar 包
-```
+``` java
         <dependency>
             <groupId>com.fanpan26</groupId>
             <artifactId>tio-websocket-spring-boot-starter</artifactId>
@@ -11,7 +11,7 @@
 ```
 
 * 添加注解
-```
+``` java
 @SpringBootApplication
 @EnableTioWebSocketServer
 public class SamplesApplication {
@@ -22,7 +22,7 @@ public class SamplesApplication {
 ```
 
 * 修改配置文件
-```
+``` java
 tio:
   websocket:
     server:
@@ -37,7 +37,7 @@ tio:
 ```
 
 * 编写消息处理类
-```
+``` java
 @WebSocketMsgHandler
 public class MyWebSocketMsgHandler implements TioWebSocketMsgHandler {
 
@@ -72,7 +72,7 @@ public class MyWebSocketMsgHandler implements TioWebSocketMsgHandler {
 ```
 
 * 编写简单客户端
-```
+``` java
 <script>
         var ws =new WebSocket("ws://localhost:9876");
         ws.onopen = function (event) {
@@ -87,7 +87,7 @@ public class MyWebSocketMsgHandler implements TioWebSocketMsgHandler {
 ```
 
 * 运行程序，打开浏览器,Console 打印
-```
+``` javascript
 opened
 服务器收到了消息：Hello Tio WebSocket
 ```
