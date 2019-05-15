@@ -54,7 +54,7 @@ public class TioWsUtils {
         Tio.sendToUser(SpringContextHolder.getSerGorupContext(), userId, wsPacket(msg));
     }
 
-    private static Packet wsPacket(Object msg){
+    public static Packet wsPacket(Object msg){
         if (msg instanceof Packet){
             return (Packet)msg;
         }

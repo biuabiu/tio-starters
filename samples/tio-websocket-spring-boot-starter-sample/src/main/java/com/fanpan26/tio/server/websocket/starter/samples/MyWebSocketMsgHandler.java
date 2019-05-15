@@ -1,14 +1,22 @@
 package com.fanpan26.tio.server.websocket.starter.samples;
 
 import com.fanpan26.tio.server.websocket.TioWebSocketMsgHandler;
+import com.fanpan26.tio.server.websocket.TioWsUtils;
 import com.fanpan26.tio.server.websocket.WebSocketMsgHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.tio.core.ChannelContext;
+import org.tio.core.Tio;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
+import org.tio.server.ServerGroupContext;
 import org.tio.websocket.common.WsRequest;
 
 @WebSocketMsgHandler
 public class MyWebSocketMsgHandler implements TioWebSocketMsgHandler {
+
+
+    @Autowired
+    private ServerGroupContext serverGroupContext;
 
     @Override
     public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
@@ -18,6 +26,7 @@ public class MyWebSocketMsgHandler implements TioWebSocketMsgHandler {
     @Override
     public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
         System.out.println("握手成功");
+        Tio.sendToAll(serverGroupContext, TioWsUtils.wsPacket("又一个用户握手成功啦"));
     }
 
     @Override
