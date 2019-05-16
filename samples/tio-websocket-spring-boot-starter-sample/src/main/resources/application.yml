@@ -1,13 +1,13 @@
-
 tio:
   websocket:
     server:
       port: 9876
       heartbeat-timeout: 60000
     cluster:
-      enabled: false
-    redis:
-      ip: 192.168.1.225
-      port: 6379
+      enabled: true
+      group: true
+      redis:
+        ip: 127.0.0.1
+        port: 6379
 server:
   port: 8081
