@@ -21,12 +21,10 @@ public class TioWebSocketClassScanner {
     }
 
     public void scanInstance(Class<?> beanClazz, Consumer<Object> consumer) {
-        Map<String, Object> annotatioMap = applicationContext.getBeansWithAnnotation(EnableTioWebSocketServer.class);
-        Class applicationClazz = annotatioMap.entrySet().iterator().next().getValue().getClass();
+        Map<String, Object> annotationMap = applicationContext.getBeansWithAnnotation(EnableTioWebSocketServer.class);
+        Class applicationClazz = annotationMap.entrySet().iterator().next().getValue().getClass();
         String packageName = applicationClazz.getPackage().getName();
 
-        Object target;
-        ;
         try {
             ClassUtil.scanPackage(packageName, clazz -> {
                 if (!clazz.isInterface()) {
