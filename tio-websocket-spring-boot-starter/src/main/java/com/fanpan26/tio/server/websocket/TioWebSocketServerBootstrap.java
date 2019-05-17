@@ -27,6 +27,7 @@ public final class TioWebSocketServerBootstrap {
 
     private TioWebSocketServerProperties serverProperties;
     private TioWebSocketServerClusterProperties clusterProperties;
+    private TioWebSocketServerSslProperties serverSslProperties;
     private RedissonTioClusterTopic redissonTioClusterTopic;
     private WsServerConfig wsServerConfig;
     private TioClusterConfig clusterConfig;
@@ -38,6 +39,7 @@ public final class TioWebSocketServerBootstrap {
 
     public TioWebSocketServerBootstrap(TioWebSocketServerProperties serverProperties,
                                        TioWebSocketServerClusterProperties clusterProperties,
+                                       TioWebSocketServerSslProperties serverSslProperties,
                                        RedissonTioClusterTopic redissonTioClusterTopic,
                                        IWsMsgHandler tioWebSocketMsgHandler,
                                        IpStatListener ipStatListener,
@@ -45,6 +47,9 @@ public final class TioWebSocketServerBootstrap {
                                        TioWebSocketClassScanner tioWebSocketClassScanner) {
         this.serverProperties = serverProperties;
         this.clusterProperties = clusterProperties;
+        this.serverSslProperties = serverSslProperties;
+
+        logger.debug(serverSslProperties.toString());
         if (redissonTioClusterTopic == null) {
             logger.info("cluster mod closed");
         }
@@ -151,8 +156,18 @@ public final class TioWebSocketServerBootstrap {
         if (serverProperties.getHeartbeatTimeout() > 0) {
             serverGroupContext.setHeartbeatTimeout(serverProperties.getHeartbeatTimeout());
         }
+        //cluster config
         if (clusterConfig != null) {
             serverGroupContext.setTioClusterConfig(clusterConfig);
+        }
+        //ssl config
+        if (serverSslProperties.isEnabled()){
+            try {
+                serverGroupContext.useSsl(serverSslProperties.getKeyStore(), serverSslProperties.getTrustStore(), serverSslProperties.getPassword());
+            }catch (Exception e){
+                //catch and log
+                logger.error("init ssl config error",e);
+            }
         }
     }
 
