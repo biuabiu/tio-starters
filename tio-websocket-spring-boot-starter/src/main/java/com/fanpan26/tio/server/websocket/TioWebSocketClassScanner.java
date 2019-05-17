@@ -1,5 +1,7 @@
 package com.fanpan26.tio.server.websocket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.tio.utils.hutool.ClassUtil;
 
@@ -14,6 +16,7 @@ import java.util.function.Consumer;
  */
 public class TioWebSocketClassScanner {
 
+    private static final Logger logger = LoggerFactory.getLogger(TioWebSocketClassScanner.class);
     private ApplicationContext applicationContext;
 
     public TioWebSocketClassScanner(ApplicationContext applicationContext) {
@@ -39,6 +42,10 @@ public class TioWebSocketClassScanner {
             });
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+        catch (NoClassDefFoundError error){
+            //ignored this error
+            logger.warn( "NoClassDefFoundError:" + error.getMessage());
         }
     }
 
