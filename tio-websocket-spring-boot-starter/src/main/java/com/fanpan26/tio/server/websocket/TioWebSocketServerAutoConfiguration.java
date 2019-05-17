@@ -11,12 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.tio.cluster.redisson.RedissonTioClusterTopic;
-import org.tio.core.intf.GroupListener;
-import org.tio.core.stat.IpStatListener;
 import org.tio.server.ServerGroupContext;
 import org.tio.websocket.server.handler.IWsMsgHandler;
 
-import java.security.acl.Group;
 
 
 /**
@@ -27,7 +24,8 @@ import java.security.acl.Group;
 @ConditionalOnBean(TioWebSocketServerMarkerConfiguration.Marker.class)
 @EnableConfigurationProperties({ TioWebSocketServerProperties.class,
         TioWebSocketServerClusterProperties.class,
-        TioWebSocketServerClusterProperties.RedisConfig.class })
+        TioWebSocketServerClusterProperties.RedisConfig.class,
+        TioWebSocketServerSslProperties.class})
 public class TioWebSocketServerAutoConfiguration {
 
     /**
@@ -53,6 +51,9 @@ public class TioWebSocketServerAutoConfiguration {
     @Autowired
     private TioWebSocketServerProperties serverProperties;
 
+    @Autowired
+    private TioWebSocketServerSslProperties serverSslProperties;
+
     @Autowired(required = false)
     private RedissonTioClusterTopic redissonTioClusterTopic;
 
@@ -70,6 +71,7 @@ public class TioWebSocketServerAutoConfiguration {
     public TioWebSocketServerBootstrap webSocketServerBootstrap() {
         return new TioWebSocketServerBootstrap(serverProperties,
                 clusterProperties,
+                serverSslProperties,
                 redissonTioClusterTopic,
                 tioWebSocketMsgHandler,
                 tioWebSocketIpStatListener,
