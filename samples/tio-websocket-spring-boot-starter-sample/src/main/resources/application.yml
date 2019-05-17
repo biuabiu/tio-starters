@@ -3,6 +3,11 @@ tio:
     server:
       port: 9876
       heartbeat-timeout: 60000
+    ssl:
+      enabled: false
+      keystore: classpath:ssl/tio.jks
+      truststore: classpath:ssl/tio.jks
+      password: ******
     cluster:
       enabled: true
       group: true
