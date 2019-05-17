@@ -5,7 +5,8 @@
     <title>Title</title>
     <script>
         var uid =parseInt(Math.random()*10000);
-        var url ="ws://localhost:9876";
+        var url ="wss://www.fanpan26.com:9876";
+        //var url = "ws://localhost:9876";
         var ws =new WebSocket(url+"?uid="+uid);
         ws.onopen = function (event) {
             console.log("opened");
