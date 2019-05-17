@@ -45,7 +45,7 @@ public class TioWebSocketClassScanner {
         }
         catch (NoClassDefFoundError error){
             //ignored this error
-            logger.warn(error.getMessage());
+            logger.warn( "NoClassDefFoundError:" + error.getMessage());
         }
     }
 
