@@ -10,7 +10,11 @@ tio:
       password: ******
     cluster:
       enabled: true
+      #群组 集群，default false
       group: true
+      user: true
+      ip: true
+      channel: true
       redis:
         ip: 127.0.0.1
         port: 6379
