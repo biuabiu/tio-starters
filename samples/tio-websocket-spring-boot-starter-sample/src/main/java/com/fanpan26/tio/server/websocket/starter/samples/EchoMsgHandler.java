@@ -21,6 +21,7 @@ public class EchoMsgHandler implements TioWebSocketMsgHandler {
     private Integer port;
 
     private static final String GROUP_ALL = "TIO-WEBSOCKET-SPRING-BOOT-STARTER-ALL";
+
     @Override
     public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
         String userId = httpRequest.getParam("uid");
@@ -32,7 +33,7 @@ public class EchoMsgHandler implements TioWebSocketMsgHandler {
 
     @Override
     public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
-        Tio.bindGroup(channelContext,GROUP_ALL);
+        Tio.bindGroup(channelContext, GROUP_ALL);
         String userId = httpRequest.getParam("uid");
         Tio.bindUser(channelContext, userId);
         TioWsUtils.sendToAll("new User:" + userId + " said :I come from :" + port);
@@ -51,7 +52,7 @@ public class EchoMsgHandler implements TioWebSocketMsgHandler {
 
     @Override
     public Object onText(WsRequest wsRequest, String s, ChannelContext channelContext) throws Exception {
-        TioWsUtils.sendToGroup(GROUP_ALL, s);
+        TioWsUtils.sendToGroup(GROUP_ALL, "msg from " + port + ":" + s);
         return null;
     }
 }

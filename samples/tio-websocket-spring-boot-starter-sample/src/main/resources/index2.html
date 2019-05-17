@@ -5,14 +5,14 @@
     <title>Title</title>
     <script>
         var uid =parseInt(Math.random()*10000);
-        var url ="ws://localhost:9876";
+        var url ="ws://localhost:9875";
         var ws =new WebSocket(url+"?uid="+uid);
         ws.onopen = function (event) {
             console.log("opened");
             ws.send("Hello Tio WebSocket");
         }
         ws.onmessage=function (p1) {
-         appendHtml( document.getElementById('container'),'<li>'+p1.data+'</li>');
+            appendHtml( document.getElementById('container'),'<li>'+p1.data+'</li>');
         }
         function send() {
             ws.send(document.getElementById('txtInput').value);

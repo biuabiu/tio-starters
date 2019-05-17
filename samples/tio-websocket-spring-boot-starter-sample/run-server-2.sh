@@ -1,0 +1,1 @@
+nohup java -jar ./target/tio-websocket-spring-boot-starter-sample-1.0-SNAPSHOT.jar --tio.websocket.server.port=9875 --server.port=8082 >tiows2.log &
