@@ -9,6 +9,7 @@ import org.tio.core.intf.GroupListener;
 import org.tio.core.stat.IpStatListener;
 import org.tio.server.ServerGroupContext;
 import org.tio.utils.Threads;
+import org.tio.websocket.server.WsServerAioListener;
 import org.tio.websocket.server.WsServerConfig;
 import org.tio.websocket.server.WsServerStarter;
 import org.tio.websocket.server.handler.IWsMsgHandler;
@@ -36,6 +37,7 @@ public final class TioWebSocketServerBootstrap {
     private IWsMsgHandler tioWebSocketMsgHandler;
     private IpStatListener ipStatListener;
     private GroupListener groupListener;
+    private WsServerAioListener serverAioListener;
 
     public TioWebSocketServerBootstrap(TioWebSocketServerProperties serverProperties,
                                        TioWebSocketServerClusterProperties clusterProperties,
@@ -44,6 +46,7 @@ public final class TioWebSocketServerBootstrap {
                                        IWsMsgHandler tioWebSocketMsgHandler,
                                        IpStatListener ipStatListener,
                                        GroupListener groupListener,
+                                       WsServerAioListener serverAioListener,
                                        TioWebSocketClassScanner tioWebSocketClassScanner) {
         this.serverProperties = serverProperties;
         this.clusterProperties = clusterProperties;
@@ -61,7 +64,7 @@ public final class TioWebSocketServerBootstrap {
                 tioWebSocketClassScanner.scanInstance(IWsMsgHandler.class, instance -> {
                     this.tioWebSocketMsgHandler = (IWsMsgHandler) instance;
                 });
-            }else{
+            } else {
                 this.tioWebSocketMsgHandler = tioWebSocketMsgHandler;
             }
 
@@ -78,6 +81,13 @@ public final class TioWebSocketServerBootstrap {
                 });
             } else {
                 this.groupListener = groupListener;
+            }
+            if (serverAioListener == null) {
+                tioWebSocketClassScanner.scanInstance(WsServerAioListener.class, instance -> {
+                    this.serverAioListener = (WsServerAioListener) instance;
+                });
+            } else {
+                this.serverAioListener = serverAioListener;
             }
         } else {
             this.tioWebSocketMsgHandler = tioWebSocketMsgHandler;
@@ -149,7 +159,9 @@ public final class TioWebSocketServerBootstrap {
         if (ipStatListener != null) {
             serverGroupContext.setIpStatListener(ipStatListener);
         }
-        //serverGroupContext.setServerAioListener();
+        if(serverAioListener != null) {
+            serverGroupContext.setServerAioListener(this.serverAioListener);
+        }
         if (groupListener != null) {
             serverGroupContext.setGroupListener(groupListener);
         }
