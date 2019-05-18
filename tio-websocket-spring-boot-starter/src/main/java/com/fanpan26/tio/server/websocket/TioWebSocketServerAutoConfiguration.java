@@ -42,6 +42,9 @@ public class TioWebSocketServerAutoConfiguration {
     @Autowired(required = false)
     private TioWebSocketGroupListener tioWebSocketGroupListener;
 
+    @Autowired(required = false)
+    private TioWebSocketServerAioListener tioWebSocketServerAioListener;
+
     @Autowired
     private TioWebSocketServerClusterProperties clusterProperties;
 
@@ -76,6 +79,7 @@ public class TioWebSocketServerAutoConfiguration {
                 tioWebSocketMsgHandler,
                 tioWebSocketIpStatListener,
                 tioWebSocketGroupListener,
+                tioWebSocketServerAioListener,
                 tioWebSocketClassScanner);
     }
 
