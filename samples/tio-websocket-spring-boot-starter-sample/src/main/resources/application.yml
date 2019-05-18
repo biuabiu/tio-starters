@@ -7,9 +7,9 @@ tio:
       enabled: false
       keystore: classpath:ssl/tio.jks
       truststore: classpath:ssl/tio.jks
-      password: ******
+      password: 123456
     cluster:
-      enabled: true
+      enabled: false
       #群组 集群，default false
       group: true
       user: true
