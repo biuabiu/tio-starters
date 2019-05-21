@@ -1,8 +1,8 @@
-package org.tio.springboot.starter.websocket.samples;
+package org.tio.websocket.starter.samples;
 
-import org.tio.springboot.starter.websocket.TioWebSocketMsgHandler;
-import org.tio.springboot.starter.websocket.TioWsUtils;
-import org.tio.springboot.starter.websocket.WebSocketMsgHandler;
+import org.tio.websocket.starter.TioWebSocketMsgHandler;
+import org.tio.websocket.starter.TioWsUtils;
+import org.tio.websocket.starter.WebSocketMsgHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.tio.core.ChannelContext;
 import org.tio.core.Tio;

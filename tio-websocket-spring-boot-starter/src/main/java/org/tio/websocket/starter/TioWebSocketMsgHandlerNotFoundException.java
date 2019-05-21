@@ -1,4 +1,4 @@
-package org.tio.springboot.starter.websocket;
+package org.tio.websocket.starter;
 
 /**
  * @author fyp

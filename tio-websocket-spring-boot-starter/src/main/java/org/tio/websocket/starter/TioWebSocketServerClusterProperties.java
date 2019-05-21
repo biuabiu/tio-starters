@@ -1,9 +1,9 @@
-package org.tio.springboot.starter.websocket;
+package org.tio.websocket.starter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.tio.utils.hutool.StrUtil;
 
-import static org.tio.springboot.starter.websocket.TioWebSocketServerClusterProperties.PREFIX;
+import static org.tio.websocket.starter.TioWebSocketServerClusterProperties.PREFIX;
 
 /**
  * @author fanpan26

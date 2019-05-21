@@ -1,7 +1,7 @@
-package org.tio.springboot.starter.websocket.samples;
+package org.tio.websocket.starter.samples;
 
-import org.tio.springboot.starter.websocket.TioWebSocketServerAioListener;
-import org.tio.springboot.starter.websocket.WebSocketAioListener;
+import org.tio.websocket.starter.TioWebSocketServerAioListener;
+import org.tio.websocket.starter.WebSocketAioListener;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 

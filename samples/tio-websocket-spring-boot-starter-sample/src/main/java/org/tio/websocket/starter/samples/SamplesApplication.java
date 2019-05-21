@@ -1,7 +1,7 @@
-package org.tio.springboot.starter.websocket.samples;
+package org.tio.websocket.starter.samples;
 
 
-import org.tio.springboot.starter.websocket.EnableTioWebSocketServer;
+import org.tio.websocket.starter.EnableTioWebSocketServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

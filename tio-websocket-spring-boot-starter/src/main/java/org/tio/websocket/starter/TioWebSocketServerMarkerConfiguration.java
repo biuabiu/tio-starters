@@ -1,4 +1,4 @@
-package org.tio.springboot.starter.websocket;
+package org.tio.websocket.starter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

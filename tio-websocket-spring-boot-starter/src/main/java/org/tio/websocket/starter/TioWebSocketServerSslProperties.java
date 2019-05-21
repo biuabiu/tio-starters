@@ -1,8 +1,8 @@
-package org.tio.springboot.starter.websocket;
+package org.tio.websocket.starter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import static org.tio.springboot.starter.websocket.TioWebSocketServerSslProperties.PREFIX;
+import static org.tio.websocket.starter.TioWebSocketServerSslProperties.PREFIX;
 
 /**
  * @author fyp
