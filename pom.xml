@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+
         <module>tio-websocket-spring-boot-starter</module>
         <module>tio-web-spring-boot-starter</module>
         <module>samples/tio-web-spring-boot-starter-sample</module>
