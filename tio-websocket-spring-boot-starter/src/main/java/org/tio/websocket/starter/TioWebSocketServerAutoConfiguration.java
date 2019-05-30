@@ -62,10 +62,6 @@ public class TioWebSocketServerAutoConfiguration {
     @Autowired(required = false)
     private TioWebSocketClassScanner tioWebSocketClassScanner;
 
-    @Bean
-    public SpringContextHolder springContextHolder(){
-        return new SpringContextHolder();
-    }
     /**
      * Tio WebSocket Server bootstrap
      * */

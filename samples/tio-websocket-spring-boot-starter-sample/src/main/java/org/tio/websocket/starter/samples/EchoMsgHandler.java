@@ -1,7 +1,6 @@
 package org.tio.websocket.starter.samples;
 
 import org.tio.websocket.starter.TioWebSocketMsgHandler;
-import org.tio.websocket.starter.TioWsUtils;
 import org.tio.websocket.starter.WebSocketMsgHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.tio.core.ChannelContext;
@@ -35,7 +34,6 @@ public class EchoMsgHandler implements TioWebSocketMsgHandler {
         Tio.bindGroup(channelContext, GROUP_ALL);
         String userId = httpRequest.getParam("uid");
         Tio.bindUser(channelContext, userId);
-        TioWsUtils.sendToAll("new User:" + userId + " said :I come from :" + port);
     }
 
     @Override
@@ -51,7 +49,6 @@ public class EchoMsgHandler implements TioWebSocketMsgHandler {
 
     @Override
     public Object onText(WsRequest wsRequest, String s, ChannelContext channelContext) throws Exception {
-        TioWsUtils.sendToGroup(GROUP_ALL, "msg from " + port + ":" + s);
         return null;
     }
 }
