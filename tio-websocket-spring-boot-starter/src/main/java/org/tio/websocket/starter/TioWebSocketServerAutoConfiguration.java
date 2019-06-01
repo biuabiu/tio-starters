@@ -99,6 +99,9 @@ public class TioWebSocketServerAutoConfiguration {
         return new RedissonTioClusterTopic(CLUSTER_TOPIC_CHANNEL,redisInitializer.getRedissonClient());
     }
 
+    /**
+     * scan tio classes and interfaces
+     * */
     @Bean(destroyMethod = "destroy")
     public TioWebSocketClassScanner tioWebSocketClassScanner(ApplicationContext applicationContext) {
         return new TioWebSocketClassScanner(applicationContext);
