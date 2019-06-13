@@ -1,54 +1,61 @@
-package org.tio.websocket.starter.samples;
+package com.fanpan26.samples;
 
-import org.tio.websocket.starter.TioWebSocketMsgHandler;
-import org.tio.websocket.starter.WebSocketMsgHandler;
-import org.springframework.beans.factory.annotation.Value;
 import org.tio.core.ChannelContext;
 import org.tio.core.Tio;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
-import org.tio.http.common.HttpResponseStatus;
-import org.tio.utils.hutool.StrUtil;
 import org.tio.websocket.common.WsRequest;
+import org.tio.websocket.common.WsResponse;
+import org.tio.websocket.server.handler.IWsMsgHandler;
 
-@WebSocketMsgHandler
-public class EchoMsgHandler implements TioWebSocketMsgHandler {
+/**
+ * @author fyp
+ * @crate 2019/6/13 21:23
+ * @project tio-starters
+ *
+ * 和 Tio WebSocket 用法一致，需要实现 IWsMsgHandler 接口，可以添加 @Service 注解，不加的话会自动扫描该类
+ */
+public class SpringBootWsMsgHandler implements IWsMsgHandler {
 
-
-    @Value("${tio.websocket.server.port}")
-    private Integer port;
-
-    private static final String GROUP_ALL = "TIO-WEBSOCKET-SPRING-BOOT-STARTER-ALL";
-
+    /**
+     * 握手
+     * */
     @Override
     public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
-        String userId = httpRequest.getParam("uid");
-        if (StrUtil.isBlank(userId)) {
-            httpResponse.setStatus(HttpResponseStatus.C401);
-        }
         return httpResponse;
     }
 
+    /**
+     * 握手完毕
+     * */
     @Override
     public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
-        Tio.bindGroup(channelContext, GROUP_ALL);
-        String userId = httpRequest.getParam("uid");
-        Tio.bindUser(channelContext, userId);
+
     }
 
+    /**
+     * binaryType = arraybuffer
+     * */
     @Override
     public Object onBytes(WsRequest wsRequest, byte[] bytes, ChannelContext channelContext) throws Exception {
         return null;
     }
 
+
+    /**
+     * 关闭
+     * */
     @Override
     public Object onClose(WsRequest wsRequest, byte[] bytes, ChannelContext channelContext) throws Exception {
-        Tio.remove(channelContext, "websocket closed");
         return null;
     }
 
+    /**
+     * binaryType=text
+     * */
     @Override
     public Object onText(WsRequest wsRequest, String s, ChannelContext channelContext) throws Exception {
+        Tio.sendToAll(channelContext.getGroupContext(), WsResponse.fromText("服务端收到了消息："+s,"utf-8"));
         return null;
     }
 }

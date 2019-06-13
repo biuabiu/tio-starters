@@ -5,20 +5,18 @@
     <title>Title</title>
     <script>
         var uid =parseInt(Math.random()*10000);
-        //var url ="wss://www.fanpan26.com:9876";
         var url = "ws://localhost:9876";
         var ws =new WebSocket(url+"?uid="+uid);
         ws.onopen = function (event) {
             console.log("opened");
-            ws.send("Hello Tio WebSocket");
         }
         ws.onmessage=function (p1) {
-         appendHtml( document.getElementById('container'),'<li>'+p1.data+'</li>');
+            console.log(p1.data);
+            appendHtml(document.getElementById('container'),'<li>'+p1.data+'</li>');
         }
         function send() {
             ws.send(document.getElementById('txtInput').value);
         }
-
         function appendHtml(elem,value){
             var node = document.createElement("div"),
                 fragment = document.createDocumentFragment(),
@@ -45,6 +43,8 @@
 
     <input type="text"  id="txtInput"/>
     <input type="button" value="发言" onclick="send()">
+
+    <a target="_blank" href="http://localhost:8080/push/msg?msg=hello from push api">使用API推送消息</a>
 </div>
 </body>
 </html>

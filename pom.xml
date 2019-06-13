@@ -9,11 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-
-        <module>tio-websocket-spring-boot-starter</module>
         <module>tio-web-spring-boot-starter</module>
         <module>samples/tio-web-spring-boot-starter-sample</module>
-        <module>samples/tio-websocket-spring-boot-starter-sample</module>
+        <module>samples/tio-websocket-springboot-starter-sample</module>
     </modules>
 
 
@@ -22,7 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-boot.version>2.0.6.RELEASE</spring-boot.version>
-        <tio.version>3.2.9.v20190401-RELEASE</tio.version>
+        <tio.version>3.3.2.v20190601-RELEASE</tio.version>
         <redisson.version>3.10.5</redisson.version>
     </properties>
 
