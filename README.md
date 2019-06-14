@@ -1,6 +1,4 @@
-# tio-starters
-
-* tio-websocket-spring-boot-starter
+# tio-websocket-spring-boot-starter
 
 ## 快速开始
 * 引入 jar 包
