@@ -19,7 +19,12 @@ clusterServersConfig:
   readMode: "SLAVE"
   subscriptionMode: "SLAVE"
   nodeAddresses:
-  - "redis://127.0.0.1:6379"
+  - "redis://192.168.187.129:7001"
+  - "redis://192.168.187.129:7002"
+  - "redis://192.168.187.129:7003"
+  - "redis://192.168.187.129:7004"
+  - "redis://192.168.187.129:7005"
+  - "redis://192.168.187.129:7006"
   scanInterval: 1000
   pingConnectionInterval: 0
   keepAlive: false

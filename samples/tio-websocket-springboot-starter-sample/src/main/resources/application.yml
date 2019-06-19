@@ -10,7 +10,7 @@ tio:
       enabled: true
       # 集群是通过redis的Pub/Sub实现，所以需要配置Redis
       redis:
-        config-path: redis-replicated-config.yaml
+        config-path: redis-cluster-config.yaml
         ip: 127.0.0.1
         port: 6379
       all: true
