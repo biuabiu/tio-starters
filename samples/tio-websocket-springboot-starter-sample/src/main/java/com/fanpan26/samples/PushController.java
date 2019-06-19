@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tio.core.Tio;
 import org.tio.utils.hutool.StrUtil;
-import org.tio.websocket.common.WsPacket;
 import org.tio.websocket.common.WsResponse;
 import org.tio.websocket.starter.TioWebSocketServerBootstrap;
 
