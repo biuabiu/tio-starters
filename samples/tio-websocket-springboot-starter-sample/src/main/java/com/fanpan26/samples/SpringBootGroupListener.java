@@ -1,5 +1,6 @@
 package com.fanpan26.samples;
 
+import org.springframework.stereotype.Service;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.GroupListener;
 
@@ -8,6 +9,7 @@ import org.tio.core.intf.GroupListener;
  * @crate 2019/6/13 21:25
  * @project tio-starters
  */
+@Service
 public class SpringBootGroupListener implements GroupListener {
     @Override
     public void onAfterBind(ChannelContext channelContext, String s) throws Exception {

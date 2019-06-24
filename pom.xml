@@ -12,6 +12,7 @@
         <module>tio-web-spring-boot-starter</module>
         <module>samples/tio-web-spring-boot-starter-sample</module>
         <module>samples/tio-websocket-springboot-starter-sample</module>
+        <module>tio-spring-boot-common</module>
     </modules>
 
 

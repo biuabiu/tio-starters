@@ -5,12 +5,13 @@ tio:
       port: 9876
       # 心跳时间
       heartbeat-timeout: 60000
+      use-scanner: false
       # 集群配置 默认关闭
     cluster:
       enabled: true
       # 集群是通过redis的Pub/Sub实现，所以需要配置Redis
       redis:
-        config-path: redis-cluster-config.yaml
+        config-path:
         ip: 127.0.0.1
         port: 6379
       all: true
@@ -18,8 +19,8 @@ tio:
       ip: true
       user: true
     # SSL 配置
-    #ssl:
-      #enabled: false
-      #key-store:
-      #password:
-      #trust-store:
+    ssl:
+      enabled: false
+      key-store: test
+      password: test
+      trust-store: test

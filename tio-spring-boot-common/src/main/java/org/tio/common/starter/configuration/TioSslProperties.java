@@ -1,15 +1,12 @@
-package org.tio.websocket.starter;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import static org.tio.websocket.starter.TioWebSocketServerSslProperties.PREFIX;
+package org.tio.common.starter.configuration;
 
 /**
  * @author fyp
+ * @crate 2019/6/24 21:16
+ * @project tio-starters
  */
-@ConfigurationProperties(PREFIX)
-public class TioWebSocketServerSslProperties {
-    public static final String PREFIX = "tio.websocket.ssl";
+public class TioSslProperties {
+    public static String PREFIX = "tio.ssl";
 
     private boolean enabled=false;
     private String keyStore;
