@@ -1,7 +1,7 @@
 package com.fanpan26.samples;
 
 import org.springframework.stereotype.Service;
-import org.tio.common.starter.annotation.TioMsgHandler;
+import org.tio.common.starter.annotation.TioServerMsgHandler;
 import org.tio.core.ChannelContext;
 import org.tio.core.Tio;
 import org.tio.http.common.HttpRequest;
@@ -17,7 +17,7 @@ import org.tio.websocket.server.handler.IWsMsgHandler;
  *
  * 和 Tio WebSocket 用法一致，需要实现 IWsMsgHandler 接口，可以添加 @Service 注解，不加的话会自动扫描该类(需要配置 tio.websocket.server.use-scanner: true)
  */
-@TioMsgHandler
+@TioServerMsgHandler
 public class SpringBootWsMsgHandler implements IWsMsgHandler {
 
     /**
