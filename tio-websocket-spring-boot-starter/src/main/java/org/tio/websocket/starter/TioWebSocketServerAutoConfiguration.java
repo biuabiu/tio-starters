@@ -38,6 +38,7 @@ public class TioWebSocketServerAutoConfiguration {
      *  cluster topic channel
      * */
     private static final String CLUSTER_TOPIC_CHANNEL = "tio_ws_spring_boot_starter";
+    private static TioWebSocketServerBootstrap tioWebSocketServerBootstrap;
 
     @Autowired(required = false)
     private IWsMsgHandler tioWebSocketMsgHandler;
@@ -74,15 +75,18 @@ public class TioWebSocketServerAutoConfiguration {
      * */
     @Bean
     public TioWebSocketServerBootstrap webSocketServerBootstrap() {
-        return new TioWebSocketServerBootstrap(serverProperties,
-                clusterProperties,
-                serverSslProperties,
-                redissonTioClusterTopic,
-                tioWebSocketMsgHandler,
-                tioWebSocketIpStatListener,
-                tioWebSocketGroupListener,
-                tioWebSocketServerAioListener,
-                tioWebSocketClassScanner);
+    	if(tioWebSocketServerBootstrap == null) {
+    		tioWebSocketServerBootstrap =new TioWebSocketServerBootstrap(serverProperties,
+                    clusterProperties,
+                    serverSslProperties,
+                    redissonTioClusterTopic,
+                    tioWebSocketMsgHandler,
+                    tioWebSocketIpStatListener,
+                    tioWebSocketGroupListener,
+                    tioWebSocketServerAioListener,
+                    tioWebSocketClassScanner);
+    	}
+        return tioWebSocketServerBootstrap;
     }
 
     @Bean
