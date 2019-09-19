@@ -3,6 +3,7 @@ package org.tio.websocket.starter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -76,7 +77,7 @@ public class TioWebSocketServerAutoConfiguration {
     @Bean
     public TioWebSocketServerBootstrap webSocketServerBootstrap() {
     	if(tioWebSocketServerBootstrap == null) {
-    		tioWebSocketServerBootstrap =new TioWebSocketServerBootstrap(serverProperties,
+    		tioWebSocketServerBootstrap = new TioWebSocketServerBootstrap(serverProperties,
                     clusterProperties,
                     serverSslProperties,
                     redissonTioClusterTopic,

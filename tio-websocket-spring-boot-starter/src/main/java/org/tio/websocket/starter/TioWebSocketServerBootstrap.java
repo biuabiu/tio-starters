@@ -64,6 +64,7 @@ public final class TioWebSocketServerBootstrap {
         // IWsMsgHandler bean not found
         if (tioWebSocketClassScanner != null) {
             if (tioWebSocketMsgHandler == null) {
+
                 tioWebSocketClassScanner.scanInstance(IWsMsgHandler.class, instance -> {
                     this.tioWebSocketMsgHandler = (IWsMsgHandler) instance;
                 });
@@ -121,7 +122,7 @@ public final class TioWebSocketServerBootstrap {
     }
 
     public void contextInitialized() {
-        logger.info("initialize tio websocket server");
+        logger.info("Initializing Tio WebSocket Server");
         try {
             initTioWebSocketConfig();
             initTioWebSocketServer();
@@ -130,8 +131,8 @@ public final class TioWebSocketServerBootstrap {
             start();
         }
         catch (Throwable e) {
-            logger.error("Cannot bootstrap tio websocket server :", e);
-            throw new RuntimeException("Cannot bootstrap tio websocket server :", e);
+            logger.error("Error occurred while bootstrap Tio WebSocket Server :", e);
+            throw new RuntimeException("Error occurred while bootstrap Tio WebSocket Server ", e);
         }
     }
 
@@ -181,7 +182,7 @@ public final class TioWebSocketServerBootstrap {
                 serverGroupContext.useSsl(serverSslProperties.getKeyStore(), serverSslProperties.getTrustStore(), serverSslProperties.getPassword());
             }catch (Exception e){
                 //catch and log
-                logger.error("init ssl config error",e);
+                logger.error("Error occurred while initializing SSL Config",e);
             }
         }
     }
