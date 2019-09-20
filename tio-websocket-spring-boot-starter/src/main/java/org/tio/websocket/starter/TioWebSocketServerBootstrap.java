@@ -125,7 +125,6 @@ public final class TioWebSocketServerBootstrap {
 
     public void contextInitialized() {
     	if(started) {
-    		logger.info("initialize tio websocket server");
     		return;
     	}
     	
