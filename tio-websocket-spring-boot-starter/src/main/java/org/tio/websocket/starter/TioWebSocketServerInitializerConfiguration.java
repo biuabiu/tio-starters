@@ -22,9 +22,11 @@ public class TioWebSocketServerInitializerConfiguration
     @Override
     public void start() {
         new Thread(() -> {
-            webSocketServerBootstrap.contextInitialized();
-            running = true;
-        }).start();
+            if (!isRunning()) {
+                webSocketServerBootstrap.contextInitialized();
+                running = true;
+            }
+        }, "tioWsServer").start();
     }
 
     @Override

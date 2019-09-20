@@ -7,8 +7,6 @@ import org.springframework.beans.BeanUtils;
 
 /**
  * @author fyp
- * @crate 2019/6/24 21:31
- * @project tio-starters
  */
 public class TioRedisClusterProperties {
 

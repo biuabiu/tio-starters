@@ -42,38 +42,33 @@ public final class TioWebSocketServerBootstrap {
     private GroupListener groupListener;
     private WsServerAioListener serverAioListener;
 
-    /**
-     * 是否已经启动
-     * */
-    private boolean started = false;
-
     private static volatile TioWebSocketServerBootstrap tioWebSocketServerBootstrap;
-
     /**
-     * 保证只初始化一个实例
+     * 是否已经初始化
      * */
-    public static final TioWebSocketServerBootstrap getInstance(TioWebSocketServerProperties serverProperties,
-                                                                TioWebSocketServerClusterProperties clusterProperties,
-                                                                TioWebSocketServerSslProperties serverSslProperties,
-                                                                RedissonTioClusterTopic redissonTioClusterTopic,
-                                                                IWsMsgHandler tioWebSocketMsgHandler,
-                                                                IpStatListener ipStatListener,
-                                                                GroupListener groupListener,
-                                                                WsServerAioListener serverAioListener,
-                                                                TioWebSocketClassScanner tioWebSocketClassScanner){
+    private boolean initialized = false;
 
-        if (tioWebSocketServerBootstrap == null){
+    public static TioWebSocketServerBootstrap getInstance(TioWebSocketServerProperties serverProperties,
+                                                          TioWebSocketServerClusterProperties clusterProperties,
+                                                          TioWebSocketServerSslProperties serverSslProperties,
+                                                          RedissonTioClusterTopic redissonTioClusterTopic,
+                                                          IWsMsgHandler tioWebSocketMsgHandler,
+                                                          IpStatListener ipStatListener,
+                                                          GroupListener groupListener,
+                                                          WsServerAioListener serverAioListener,
+                                                          TioWebSocketClassScanner tioWebSocketClassScanner) {
+        if (tioWebSocketServerBootstrap == null) {
             synchronized (TioWebSocketServerBootstrap.class) {
                 if (tioWebSocketServerBootstrap == null) {
-                    tioWebSocketServerBootstrap = new TioWebSocketServerBootstrap(serverProperties
-                            , clusterProperties
-                            , serverSslProperties
-                            , redissonTioClusterTopic
-                            , tioWebSocketMsgHandler
-                            , ipStatListener
-                            , groupListener
-                            , serverAioListener
-                            , tioWebSocketClassScanner);
+                    tioWebSocketServerBootstrap = new TioWebSocketServerBootstrap(serverProperties,
+                            clusterProperties,
+                            serverSslProperties,
+                            redissonTioClusterTopic,
+                            tioWebSocketMsgHandler,
+                            ipStatListener,
+                            groupListener,
+                            serverAioListener,
+                            tioWebSocketClassScanner);
                 }
             }
         }
@@ -160,7 +155,7 @@ public final class TioWebSocketServerBootstrap {
     }
 
     public void contextInitialized() {
-        if (started) {
+        if (initialized){
             logger.info("Tio WebSocket Server has been Initialized");
             return;
         }
@@ -171,7 +166,7 @@ public final class TioWebSocketServerBootstrap {
             initTioWebSocketServerGroupContext();
 
             start();
-            started = true;
+            initialized = true;
         } catch (Throwable e) {
             logger.error("Error occurred while bootstrap Tio WebSocket Server :", e);
             throw new RuntimeException("Error occurred while bootstrap Tio WebSocket Server ", e);

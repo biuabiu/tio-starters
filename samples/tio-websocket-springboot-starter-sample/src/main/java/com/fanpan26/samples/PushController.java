@@ -24,7 +24,7 @@ public class PushController {
     @GetMapping("/msg")
     public void pushMessage(String msg){
         if (StrUtil.isEmpty(msg)){
-            msg = "hello tio websocket spring boot starter";
+            msg = "hello tio websockedddddt";
         }
         Tio.sendToAll(bootstrap.getServerGroupContext(), WsResponse.fromText(msg,"utf-8"));
     }

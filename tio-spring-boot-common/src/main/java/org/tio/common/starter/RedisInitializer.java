@@ -13,12 +13,9 @@ import org.tio.common.starter.configuration.TioRedisClusterProperties;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 /**
  * @author fyp
- * @crate 2019/6/24 21:36
- * @project tio-starters
  */
 public final class RedisInitializer {
 

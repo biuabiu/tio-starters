@@ -93,6 +93,7 @@ public class TioWebSocketServerAutoConfiguration {
 
     @Bean(destroyMethod="shutdown")
     @ConditionalOnProperty(value = "tio.websocket.cluster.enabled",havingValue = "true")
+    @ConditionalOnMissingBean(RedisInitializer.class)
     public RedisInitializer redisInitializer(ApplicationContext applicationContext) {
         return new RedisInitializer(redisConfig, applicationContext);
     }
@@ -103,6 +104,7 @@ public class TioWebSocketServerAutoConfiguration {
      * */
     @Bean
     @ConditionalOnBean(RedisInitializer.class)
+    @ConditionalOnMissingBean(RedissonTioClusterTopic.class)
     public RedissonTioClusterTopic redissonTioClusterTopic(RedisInitializer redisInitializer) {
         return new RedissonTioClusterTopic(CLUSTER_TOPIC_CHANNEL,redisInitializer.getRedissonClient());
     }

@@ -1,15 +1,8 @@
 package org.tio.common.starter.configuration;
 
-import org.redisson.config.ClusterServersConfig;
-import org.redisson.config.Config;
-import org.redisson.config.SentinelServersConfig;
-import org.springframework.beans.BeanUtils;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author fyp
- * @crate 2019/6/24 21:23
- * @project tio-starters
  */
 public class TioClusterProperties {
 

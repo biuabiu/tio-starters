@@ -2,8 +2,6 @@ package org.tio.common.starter.configuration;
 
 /**
  * @author fyp
- * @crate 2019/6/24 21:16
- * @project tio-starters
  */
 public class TioSslProperties {
     public static String PREFIX = "tio.ssl";
