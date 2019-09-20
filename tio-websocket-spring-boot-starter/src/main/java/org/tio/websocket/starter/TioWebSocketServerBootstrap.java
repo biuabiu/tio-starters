@@ -28,6 +28,9 @@ public final class TioWebSocketServerBootstrap {
     private static final Logger logger = LoggerFactory.getLogger(TioWebSocketServerBootstrap.class);
 
     private static final String GROUP_CONTEXT_NAME = "tio-websocket-spring-boot-starter";
+    
+    //20190920:ecoolper,解决springboot devtools模式下，重复启动tio服务造成端口冲突问题
+    private boolean started = false;
 
     private TioWebSocketServerProperties serverProperties;
     private TioWebSocketServerClusterProperties clusterProperties;
@@ -122,13 +125,18 @@ public final class TioWebSocketServerBootstrap {
     }
 
     public void contextInitialized() {
-        logger.info("Initializing Tio WebSocket Server");
+    	if(started) {
+    		return;
+    	}
+    	
+        logger.info("initialize tio websocket server");
         try {
             initTioWebSocketConfig();
             initTioWebSocketServer();
             initTioWebSocketServerGroupContext();
 
             start();
+            started = true;
         }
         catch (Throwable e) {
             logger.error("Error occurred while bootstrap Tio WebSocket Server :", e);
