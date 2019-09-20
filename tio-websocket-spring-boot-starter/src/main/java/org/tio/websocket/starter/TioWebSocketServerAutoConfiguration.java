@@ -39,7 +39,6 @@ public class TioWebSocketServerAutoConfiguration {
      *  cluster topic channel
      * */
     private static final String CLUSTER_TOPIC_CHANNEL = "tio_ws_spring_boot_starter";
-    private static TioWebSocketServerBootstrap tioWebSocketServerBootstrap;
 
     @Autowired(required = false)
     private IWsMsgHandler tioWebSocketMsgHandler;
@@ -76,18 +75,15 @@ public class TioWebSocketServerAutoConfiguration {
      * */
     @Bean
     public TioWebSocketServerBootstrap webSocketServerBootstrap() {
-    	if(tioWebSocketServerBootstrap == null) {
-    		tioWebSocketServerBootstrap = new TioWebSocketServerBootstrap(serverProperties,
-                    clusterProperties,
-                    serverSslProperties,
-                    redissonTioClusterTopic,
-                    tioWebSocketMsgHandler,
-                    tioWebSocketIpStatListener,
-                    tioWebSocketGroupListener,
-                    tioWebSocketServerAioListener,
-                    tioWebSocketClassScanner);
-    	}
-        return tioWebSocketServerBootstrap;
+        return TioWebSocketServerBootstrap.getInstance(serverProperties,
+                clusterProperties,
+                serverSslProperties,
+                redissonTioClusterTopic,
+                tioWebSocketMsgHandler,
+                tioWebSocketIpStatListener,
+                tioWebSocketGroupListener,
+                tioWebSocketServerAioListener,
+                tioWebSocketClassScanner);
     }
 
     @Bean
@@ -96,7 +92,7 @@ public class TioWebSocketServerAutoConfiguration {
     }
 
     @Bean(destroyMethod="shutdown")
-    @ConditionalOnProperty(value = "tio.websocket.cluster.enabled",havingValue = "true",matchIfMissing = false)
+    @ConditionalOnProperty(value = "tio.websocket.cluster.enabled",havingValue = "true")
     public RedisInitializer redisInitializer(ApplicationContext applicationContext) {
         return new RedisInitializer(redisConfig, applicationContext);
     }
@@ -111,8 +107,11 @@ public class TioWebSocketServerAutoConfiguration {
         return new RedissonTioClusterTopic(CLUSTER_TOPIC_CHANNEL,redisInitializer.getRedissonClient());
     }
 
+    /**
+     *  类扫描器，如果未加 @Service 注解，使用扫描注入，默认关闭
+     * */
     @Bean(destroyMethod = "destroy")
-    @ConditionalOnProperty(value = "tio.websocket.server.use-scanner",havingValue = "true",matchIfMissing = false)
+    @ConditionalOnProperty(value = "tio.websocket.server.use-scanner",havingValue = "true")
     public TioWebSocketClassScanner tioWebSocketClassScanner(ApplicationContext applicationContext) {
         return new TioWebSocketClassScanner(applicationContext);
     }
