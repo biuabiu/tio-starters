@@ -29,8 +29,8 @@
         <dependency>
             <groupId>org.t-io</groupId>
             <artifactId>tio-websocket-spring-boot-starter</artifactId>
-            <!--<version>3.3.2.v20190601-RELEASE</version>-->
-            <version>3.3.6.v20190725-RELEASE</version>
+            <version>1.0-SNAPSHOT</version>
+            <!--<version>3.3.6.v20190725-RELEASE</version>-->
         </dependency>
     </dependencies>
 

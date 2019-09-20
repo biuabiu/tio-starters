@@ -3,6 +3,7 @@ package org.tio.websocket.starter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -76,7 +77,7 @@ public class TioWebSocketServerAutoConfiguration {
     @Bean
     public TioWebSocketServerBootstrap webSocketServerBootstrap() {
     	if(tioWebSocketServerBootstrap == null) {
-    		tioWebSocketServerBootstrap =new TioWebSocketServerBootstrap(serverProperties,
+    		tioWebSocketServerBootstrap = new TioWebSocketServerBootstrap(serverProperties,
                     clusterProperties,
                     serverSslProperties,
                     redissonTioClusterTopic,
@@ -95,7 +96,7 @@ public class TioWebSocketServerAutoConfiguration {
     }
 
     @Bean(destroyMethod="shutdown")
-    @ConditionalOnProperty(value = "tio.websocket.cluster.enabled",havingValue = "true",matchIfMissing = true)
+    @ConditionalOnProperty(value = "tio.websocket.cluster.enabled",havingValue = "true",matchIfMissing = false)
     public RedisInitializer redisInitializer(ApplicationContext applicationContext) {
         return new RedisInitializer(redisConfig, applicationContext);
     }
@@ -111,7 +112,7 @@ public class TioWebSocketServerAutoConfiguration {
     }
 
     @Bean(destroyMethod = "destroy")
-    @ConditionalOnProperty(value = "tio.websocket.server.use-scanner",havingValue = "true",matchIfMissing = true)
+    @ConditionalOnProperty(value = "tio.websocket.server.use-scanner",havingValue = "true",matchIfMissing = false)
     public TioWebSocketClassScanner tioWebSocketClassScanner(ApplicationContext applicationContext) {
         return new TioWebSocketClassScanner(applicationContext);
     }
